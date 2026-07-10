@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sunvi_pokemon",
+    "name": "Sunvi Pokemon",
+    "url": "https://www.sunvi.de/Pokemon",
+    "platform": "generic"
+  },
+  {
+    "id": "luminous_pokemon",
+    "name": "Luminous Cards Pokemon Pre-Orders",
+    "url": "https://www.luminous.cards/Pre-Orders/Pokemon/",
+    "platform": "generic"
+  },
+  {
+    "id": "games_island_pokemon",
+    "name": "Games Island Pokemon",
+    "url": "https://games-island.eu/c/Pokemon",
+    "platform": "games_island"
+  },
+  {
+    "id": "pushdich_tcg_pokemon_de",
+    "name": "Pushdich TCG Pokemon (DE)",
+    "url": "https://www.pushdich-tcg.de/collections/pokemon-karten-deutsch",
+    "platform": "shopify"
+  },
+  {
+    "id": "tcgviert_vorbestellungen",
+    "name": "TCGViert Vorbestellungen",
+    "url": "https://tcgviert.com/collections/vorbestellungen/vorbestellungen",
+    "platform": "shopify"
+  }
+]

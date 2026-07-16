@@ -1,0 +1,86 @@
+[
+  {
+    "id": "tcgviert_vorbestellungen",
+    "name": "TCGViert Vorbestellungen",
+    "url": "https://tcgviert.com/collections/vorbestellungen/vorbestellungen",
+    "platform": "shopify"
+  },
+  {
+    "id": "pokejotta_preorders",
+    "name": "Pokejotta Pre-Orders",
+    "url": "https://pokejotta.com/en-germany/collections/pre-orders",
+    "platform": "shopify"
+  },
+  {
+    "id": "collect_it",
+    "name": "Collect-it Upcoming Pokemon",
+    "url": "https://www.collect-it.de/Pokemon/Demnaechst-erscheinende-Pokemon-Artikel",
+    "platform": "generic"
+  },
+  {
+    "id": "pokesynek",
+    "name": "Pokesynek Vorverkauf",
+    "url": "https://www.pokesynek.de/vorverkauf",
+    "platform": "generic"
+  },
+  {
+    "id": "fantasiacards",
+    "name": "Fantasiacards Vorbestellungen",
+    "url": "https://fantasiacards.de/en/collections/vorbestellungen-pokemon-sammelkartenspiel-fantasiacards",
+    "platform": "shopify"
+  },
+  {
+    "id": "bb_spiele_fruehverkauf",
+    "name": "BB-Spiele Fruehverkauf",
+    "url": "https://www.bb-spiele.de/pokemonfruehverkauf",
+    "platform": "generic"
+  },
+  {
+    "id": "tradingtoys_30jahre",
+    "name": "Tradingtoys 30 Jahre TCG",
+    "url": "https://www.tradingtoys.de/collections/pokemon-30-jahre-tcg",
+    "platform": "shopify"
+  },
+  {
+    "id": "keepseven",
+    "name": "Keepseven Pre-Order",
+    "url": "https://keepseven.de/product-category/pre-order/",
+    "platform": "generic"
+  },
+  {
+    "id": "stickerpoint_vorverkauf",
+    "name": "Stickerpoint Vorverkauf",
+    "url": "https://www.stickerpoint.de/pokemon-pokemon-vorverkauf-c-149_157.html",
+    "platform": "generic"
+  },
+  {
+    "id": "geeksheaven_vorbestellen",
+    "name": "Geeksheaven Vorbestellen",
+    "url": "https://geeksheaven.de/collections/vorbestellen",
+    "platform": "shopify"
+  },
+  {
+    "id": "lairos_shop",
+    "name": "Lairos Shop Vornotierungen",
+    "url": "https://lairos.shop/collections/vornotierungen",
+    "platform": "shopify"
+  },
+  {
+    "id": "cardstore_at",
+    "name": "Cardstore (AT) Vorverkauf",
+    "url": "https://cardstore.at/collections/vorverkauf",
+    "platform": "shopify"
+  },
+  {
+    "id": "basanti_30th_celebration",
+    "name": "Basanti 30th Celebration (PL)",
+    "url": "https://poke.basanti.pl/de/88-30th-celebration",
+    "platform": "generic"
+  },
+  {
+    "id": "basanti_pitch_black",
+    "name": "Basanti Pitch Black Mega Evolution (PL)",
+    "url": "https://poke.basanti.pl/de/89-pitch-black-mega-evolution",
+    "platform": "generic"
+  }
+]

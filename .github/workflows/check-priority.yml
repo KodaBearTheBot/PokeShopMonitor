@@ -1,0 +1,40 @@
+name: Check priority shops (30th Celebration watch)
+
+on:
+  schedule:
+    # Every 5 minutes - just the shortlist of preorder/upcoming pages most
+    # likely to list 30th Celebration products first.
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run checker (priority shortlist only)
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python check_shops.py priority_shops.json
+
+      - name: Commit updated state
+        run: |
+          git config user.name "shop-monitor-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state/
+          git diff --staged --quiet || git commit -m "Update priority shop state [skip ci]"
+          git pull --rebase origin main
+          git push

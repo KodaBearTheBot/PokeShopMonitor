@@ -4,7 +4,6 @@
   {"id": "games_island_pokemon", "name": "Games Island Pokemon", "url": "https://games-island.eu/c/Pokemon", "platform": "games_island"},
   {"id": "pushdich_tcg_pokemon_de", "name": "Pushdich TCG Pokemon (DE)", "url": "https://www.pushdich-tcg.de/collections/pokemon-karten-deutsch", "platform": "shopify"},
   {"id": "tcgviert_vorbestellungen", "name": "TCGViert Vorbestellungen", "url": "https://tcgviert.com/collections/vorbestellungen/vorbestellungen", "platform": "shopify"},
-
   {"id": "alldaytcg", "name": "AllDayTCG", "url": "https://alldaytcg.com/collections/all", "platform": "shopify"},
   {"id": "tcgpikas_lt", "name": "TCG Pikas (LT)", "url": "https://tcgpikas.lt/pokemon-kortos", "platform": "generic"},
   {"id": "tcgarena_ro", "name": "TCG Arena (RO)", "url": "https://tcgarena.ro/collections/joc-de-carti-pokemon-tcg-romania", "platform": "shopify"},

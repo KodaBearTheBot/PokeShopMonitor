@@ -23,6 +23,26 @@ from bs4 import BeautifulSoup
 STATE_DIR = Path("state")
 SHOPS_FILE = Path("shops.json")
 
+# Anything matching these (case-insensitive substrings) gets flagged as
+# high-priority: a louder ntfy notification (max priority + different tag)
+# instead of the normal one. Tune this list freely as more product names
+# for the 30th Celebration set become known.
+PRIORITY_KEYWORDS_FILE = Path("priority_keywords.json")
+
+
+def load_priority_keywords():
+    if PRIORITY_KEYWORDS_FILE.exists():
+        return [k.lower() for k in json.loads(PRIORITY_KEYWORDS_FILE.read_text())]
+    return []
+
+
+PRIORITY_KEYWORDS = load_priority_keywords()
+
+
+def is_priority(product_name: str) -> bool:
+    name = product_name.lower()
+    return any(kw in name for kw in PRIORITY_KEYWORDS)
+
 # ntfy topic comes from an environment variable / GitHub secret, never hardcoded
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC")
 NTFY_SERVER = os.environ.get("NTFY_SERVER", "https://ntfy.sh")
@@ -168,7 +188,7 @@ def extract_products_games_island(category_url: str):
     return products
 
 
-def send_notification(topic: str, title: str, message: str, url: str = None):
+def send_notification(topic: str, title: str, message: str, url: str = None, urgent: bool = False):
     if not topic:
         print("No NTFY_TOPIC set, skipping notification. Message was:")
         print(title, "-", message)
@@ -176,6 +196,9 @@ def send_notification(topic: str, title: str, message: str, url: str = None):
     headers = {"Title": title.encode("utf-8")}
     if url:
         headers["Click"] = url
+    if urgent:
+        headers["Priority"] = "urgent"
+        headers["Tags"] = "rotating_light"
     resp = requests.post(
         f"{NTFY_SERVER}/{topic}",
         data=message.encode("utf-8"),
@@ -227,20 +250,35 @@ def check_shop(shop: dict):
         print(f"  First run for {name}: saving {len(current)} products as baseline, no notifications sent.")
     elif new_urls:
         print(f"  {len(new_urls)} new product(s) found for {name}!")
-        if len(new_urls) == 1:
-            u = new_urls[0]
+
+        priority_urls = [u for u in new_urls if is_priority(current[u])]
+        normal_urls = [u for u in new_urls if u not in priority_urls]
+
+        if priority_urls:
+            print(f"  🚨 {len(priority_urls)} of those match a priority keyword!")
+            for u in priority_urls:
+                send_notification(
+                    NTFY_TOPIC,
+                    title=f"🚨 PRIORITY: {name}",
+                    message=current[u],
+                    url=u,
+                    urgent=True,
+                )
+
+        if len(normal_urls) == 1:
+            u = normal_urls[0]
             send_notification(
                 NTFY_TOPIC,
                 title=f"🆕 New at {name}",
                 message=current[u],
                 url=u,
             )
-        else:
-            names = "\n".join(f"• {current[u]}" for u in new_urls[:15])
-            more = f"\n(+{len(new_urls) - 15} more)" if len(new_urls) > 15 else ""
+        elif normal_urls:
+            names = "\n".join(f"• {current[u]}" for u in normal_urls[:15])
+            more = f"\n(+{len(normal_urls) - 15} more)" if len(normal_urls) > 15 else ""
             send_notification(
                 NTFY_TOPIC,
-                title=f"🆕 {len(new_urls)} new items at {name}",
+                title=f"🆕 {len(normal_urls)} new items at {name}",
                 message=names + more,
                 url=url,
             )
@@ -251,11 +289,17 @@ def check_shop(shop: dict):
 
 
 def main():
-    if not SHOPS_FILE.exists():
-        print("shops.json not found.", file=sys.stderr)
+    shops_file = Path(sys.argv[1]) if len(sys.argv) > 1 else SHOPS_FILE
+    if not shops_file.exists():
+        print(f"{shops_file} not found.", file=sys.stderr)
         sys.exit(1)
 
-    shops = json.loads(SHOPS_FILE.read_text())
+    if PRIORITY_KEYWORDS:
+        print(f"Loaded {len(PRIORITY_KEYWORDS)} priority keywords.")
+    else:
+        print("No priority_keywords.json found or it's empty — no urgent alerts will fire.")
+
+    shops = json.loads(shops_file.read_text())
     for shop in shops:
         try:
             check_shop(shop)
